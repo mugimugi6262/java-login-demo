@@ -6,8 +6,8 @@ export default {
    * GETリクエストを送信するメソッド
    * @returns 
    */
-  getRequest: () => {
-    return axios.get('/api/log');
+  login: (data) => {
+    return axios.get('/api/login', { params: data });
   },
 
   /**
