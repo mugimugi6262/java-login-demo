@@ -1,10 +1,19 @@
 package com.space.ap.util;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiResponse {
 
-    private int status;     // Response code
-    private String message; // Response message
-    private Object data;    // Response data
+    @JsonProperty("status")
+    private int status;
+
+    @JsonProperty("message")
+    private String message;
+
+    @JsonProperty("data")
+    private Object data;
 
     /** constructor */
     public ApiResponse(int status, String message, Object data) {
@@ -27,5 +36,18 @@ public class ApiResponse {
     /** error */
     public static ApiResponse error(int status, String message) {
         return new ApiResponse(status, message, null);
+    }
+
+    /** getter */
+    public int getStatus() {
+        return status;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public Object getData() {
+        return data;
     }
 }
