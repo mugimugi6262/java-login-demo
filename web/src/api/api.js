@@ -2,22 +2,22 @@
 import axios from './axios';
 
 export default {
-  /**
-   * GETリクエストを送信するメソッド
-   * @returns 
-   */
-  login: (data) => {
-    return axios.get('/api/login', { params: data });
-  },
 
   /**
-   * POSTリクエストを送信するメソッド
+   * ログインする。
    * @param {*} data 
    * @returns 
    */
-//   postRequest: (data) => {
-//     return axios.post('/api/login', data);
-//   },
+  login: (data) => {
+    return axios.post('/api/login', data);  // POSTリクエストでボディにデータを送信
+  },
 
-  // 他のHTTPメソッドを定義...
+    /**
+   * GETリクエストでデータを送信する例
+   * paramsオプションで、クエリパラメータとして送信する。
+   * @returns 
+   */
+    // name: (data) => {
+    //   return axios.get('/api/login', { params: data } );
+    // },
 };

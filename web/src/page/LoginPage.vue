@@ -6,7 +6,7 @@
         <!-- ログイン -->
         <v-card class="mx-auto px-6 py-8" max-width="350">
             <v-card-title>Java-Login-Demo</v-card-title>
-            <v-card-text>{{ message }}</v-card-text>
+            <v-card-text>{{ text }}</v-card-text>
             <v-form
                 v-model="form"
                 @submit.prevent="onLogin">
@@ -42,7 +42,7 @@ import Mugi from '@/component/thing/Mugi.vue';
 import Button from '@/component/thing/Button.vue';
 
 /** リアクティブデータの定義 */
-const message = ref("View the response.");
+const text = ref("View the response.");
 const form = ref(false);
 const loading = ref(false);
 const userName = ref(null);
@@ -54,18 +54,28 @@ const onLogin = async () => {
     // ローディングを開始する。
     loading.value = true;
 
+    // リクエストボディを作成する。
     const data = {
         'userName': userName.value,
         'password': password.value
     };
 
-    console.log('login data: ', data);
+    // API通信（POST）
+    api.login(data).then(res => {
+        const response = res.data;
 
-    // API通信（GET）
-    api.login(data).then(
-        response => {
-            console.log('response:', response.data);
-            message.value = response.data;
+        // レスポンスの確認
+        const resStatus = response.status;
+        const resData = response.data;
+        const resMessage = response.message;
+        console.log('status:', resStatus);
+        console.log('data:', resData);
+        console.log('message:', resMessage);
+
+        if (resStatus === 200) {
+            // データをセットする。
+            text.value = 'User Name: ' + resData.userName + ' Password: ' + resData.password;
+        }
 
     }).catch(error => {
         console.error("Error:", error);
